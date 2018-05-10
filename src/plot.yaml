@@ -1,0 +1,25 @@
+index: 
+  dialogue: 暗恋的同桌喊你去吃饭
+  image: null
+  choices:
+    - 是: scene2
+    - 否: scene3
+  
+scene2: 
+  dialogue: 被家长抓到打了一顿
+  image: null
+  choices:
+    - 是: end
+
+scene3: 
+  dialogue: 注孤生，再给你次机会要不要？
+  image: null
+  choices:
+    - 要: index
+    - 否: end
+
+end: 
+  dialogue: 早恋结束，好好学习
+  image: null
+  choices:
+    - Restart: index
