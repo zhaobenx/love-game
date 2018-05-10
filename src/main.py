@@ -4,7 +4,7 @@ Created on 2018-05-10 18:57:57
 @Author: ZHAO Lingfeng
 @Version : 0.0.1
 """
-
+import os
 
 import yaml
 import jinja2
@@ -40,8 +40,11 @@ def generate_HTML(plot):
         content = template.render(title=title, image=image, dialogue=dialogue, choices=choices)
         save(title, content)
 
+
 def save(filename, content):
-    filename = './docs/' + filename + '.html'
+    if not os.path.exists('../docs'):
+        os.makedirs('../docs/')
+    filename = '../docs/' + filename + '.html'
     with open(filename, 'w', encoding='utf-8') as f:
         f.write(content)
 
