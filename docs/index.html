@@ -1,34 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>index</title>
+    <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Lato:700' rel='stylesheet' type='text/css'>
+    <style>
+        body {
+            color: white;
+            background-color: lightpink;
+            font-size: 1.6em;
+            margin-left: 20%;
+            margin-right: 20%;
+            font-family: 'Lato', sans-serif;
+        }
+
+        #images {
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 1em;
+        }
+
+        .container {
+            position: relative;
+            text-align: center;
+            color: white;
+
+        }
+
+        .centered {
+            position: absolute;
+            bottom: 0;
+
+            background-color: black;
+            opacity: 0.5;
+            color: white;
+            padding-left: 20px;
+            padding-right: 20px;
+            -webkit-transition-duration: 0.2s;
+            /* Safari */
+            transition-duration: 0.2s;
+        }
+
+        .centered:hover {
+            opacity: 1;
+        }
+
+        input {
+            width: 100%;
+            height: 30px;
+            text-align: center;
+            font-size: 1em;
+            margin-top: 15px;
+        }
+
+        #buttonBox {
+            text-align: center;
+        }
+
+        button {
+            margin-left: 10px;
+            margin-top: 15px;
+            border-radius: 4px;
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            -webkit-transition-duration: 0.4s;
+            /* Safari */
+            transition-duration: 0.4s;
+        }
+
+        button:hover {
+            background-color: rgb(152, 240, 155);
+            /* Green */
+            color: white;
+            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        @media only screen and (max-width: 640px) and (min-width: 300px) {
+            body {
+                margin-right: 10%;
+                margin-left: 10%;
+            }
+        }
+
+        @media only screen and (max-width: 340px) {
+            body {
+                margin-right: 3%;
+                margin-left: 3%;
+            }
+        }
+    </style>
+
 </head>
+
 <body>
+    <div class="container">
+        <div id="images">
+        </div>
+        <div id="text" class="centered">
+        </div>
+    </div>
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" height="315" width="342">
-    <defs>
-     <style type="text/css"><![CDATA[
-       .outline { stroke:none; stroke-width:0 }
-     ]]></style>
-      <g id="heart">
-      <path d="M0 200 v-200 h200      a100,100 90 0,1 0,200     a100,100 90 0,1 -200,0     z"/>
-     </g>
-    </defs>
-    <desc>
-      a nearly perfect heart
-        made of two arcs and a right angle
-    </desc>
-     <use xlink:href="#heart" class="outline " fill="red" transform="rotate(225,150,121)"/>
-   </svg>
+    <!-- <input id="input" onkeypress="submitDogName(this)" placeholder='Type Your Dogs Name and Enter to Begin'> -->
+    <div id="buttonBox">
+    </div>
 
-    <h1>暗恋的同桌喊你去吃饭</h1>
-    
-    <a  href="scene2.html"> 是 </button>
-    
-    <a  href="scene3.html"> 否 </button>
-    
+    <script>
+        var images = document.getElementById("images");
+        var text = document.getElementById("text");
+        var buttonBox = document.getElementById('buttonBox');
+        var input = document.getElementById('input');
+        // var yerdog;
+
+        // input.onkeypress = function (event) {
+        //     if (event.key == "Enter" || event.keyCode == 13) {
+        //         yerdog = input.value;
+        //         input.parentNode.removeChild(input)
+        //         advanceTo(scenario.two)
+        //     }
+        // };
+
+
+        var changeText = function (words) {
+            text.innerHTML = words;
+        };
+
+        var changeImage = function (img) {
+            images.style.backgroundImage = "url(" + img + ")";
+        };
+
+        var changeButtons = function (buttonList) {
+            buttonBox.innerHTML = "";
+            for (var i = 0; i < buttonList.length; i++) {
+                dict = buttonList[i]
+                name = Object.keys(dict)[0]
+                path = dict[name]
+                buttonBox.innerHTML += "<button onClick=\"advanceTo(scenario." + path + ")\">" + name + "</button>";
+            }
+        };
+
+        var advanceTo = function (s) {
+            changeImage(s.image)
+            changeText(s.text)
+            changeButtons(s.choices)
+        };
+
+
+        scenario = {}
+        var scenario = {'index': {'text': '暗恋的同桌喊你去吃饭', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'是': 'scene2'}, {'否': 'scene3'}]}, 'scene2': {'text': '被家长抓到打了一顿', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'好好学习': 'end'}, {'继续地下恋情': '考试'}]}, '考试': {'text': '考试了，是谈恋爱还是学习', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'学习': '考上复旦'}, {'恋爱': '考试失败'}]}, '考试失败': {'text': '考试失败回家养猪，TA离你而去', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'Restart': 'index'}]}, '考上复旦': {'text': '考上了复旦，却失去了TA', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'Restart': 'index'}]}, 'scene3': {'text': '注孤生，再给你次机会要不要？', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'要': 'index'}, {'否': 'end'}]}, 'end': {'text': '早恋结束，好好学习', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'Restart': 'index'}]}};
+
+        advanceTo(scenario.index)
+    </script>
 </body>
+
 </html>

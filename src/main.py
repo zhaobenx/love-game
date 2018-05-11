@@ -21,24 +21,26 @@ def generate_HTML(plot):
     templateEnv = jinja2.Environment(loader=templateLoader)
     TEMPLATE_FILE = "template.html"
     template = templateEnv.get_template(TEMPLATE_FILE)
+    content = template.render(plot=plot)
+    save('index', content)
 
-    for scene in plot:
-        title = scene
+    # for scene in plot:
+    #     title = scene
 
-        image = plot[scene].get('image')
-        dialogue = plot[scene].get('dialogue')
-        choices = []
+    #     image = plot[scene].get('image')
+    #     dialogue = plot[scene].get('dialogue')
+    #     choices = []
 
-        for i in plot[scene].get('choices', []):
-            # print(i)
-            choice = {}
-            name, path = i.popitem()
-            choice['path'] = path + '.html'
-            choice['name'] = name
-            choices.append(choice)
+    #     for i in plot[scene].get('choices', []):
+    #         # print(i)
+    #         choice = {}
+    #         name, path = i.popitem()
+    #         choice['path'] = path + '.html'
+    #         choice['name'] = name
+    #         choices.append(choice)
 
-        content = template.render(title=title, image=image, dialogue=dialogue, choices=choices)
-        save(title, content)
+    #     content = template.render(title=title, image=image, dialogue=dialogue, choices=choices)
+    #     save(title, content)
 
 
 def save(filename, content):
@@ -50,7 +52,11 @@ def save(filename, content):
 
 
 def main():
+    import json
     plot = parser('plot.yaml')
+    # print(plot)
+
+    # print(json.dumps(plot, ensure_ascii=False))
     generate_HTML(plot)
     print("Done")
     pass
