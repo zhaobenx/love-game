@@ -1,25 +1,46 @@
 index: 
-  dialogue: 暗恋的同桌喊你去吃饭
-  image: null
+  text: 暗恋的同桌喊你去吃饭
+  image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg"
   choices:
     - 是: scene2
     - 否: scene3
   
 scene2: 
-  dialogue: 被家长抓到打了一顿
-  image: null
+  text: 被家长抓到打了一顿
+  image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg"
   choices:
-    - 是: end
+    - 好好学习: end
+    - 继续地下恋情: 考试
+
+考试:
+  text: 考试了，是谈恋爱还是学习
+  image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg"
+  choices: 
+    - 学习: 考上复旦
+    - 恋爱: 考试失败
+
+考试失败:
+  text: 考试失败回家养猪，TA离你而去
+  image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg"
+  choices: 
+    - Restart: index
+
+
+考上复旦:
+  text: 考上了复旦，却失去了TA
+  image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg"
+  choices:
+    - Restart: index
 
 scene3: 
-  dialogue: 注孤生，再给你次机会要不要？
-  image: null
+  text: 注孤生，再给你次机会要不要？
+  image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg"
   choices:
     - 要: index
     - 否: end
 
 end: 
-  dialogue: 早恋结束，好好学习
-  image: null
+  text: 早恋结束，好好学习
+  image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg"
   choices:
     - Restart: index
