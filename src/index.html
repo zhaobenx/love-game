@@ -78,16 +78,9 @@
             /* Safari */
             transition-duration: 0.4s;
         }
-		.buttonRed {background-color: #DC5050;}
 
         button:hover {
             background-color: rgb(152, 240, 155);
-            /* Green */
-            color: white;
-            box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
-		.buttonRed:hover {
-            background-color: rgb(233, 155, 155);
             /* Green */
             color: white;
             box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
@@ -152,12 +145,7 @@
                 dict = buttonList[i]
                 name = Object.keys(dict)[0]
                 path = dict[name]
-				if (name == "Restart"){
-                buttonBox.innerHTML += "<button class='buttonRed' onClick=\"advanceTo(scenario." + path + ")\">" + name + "</button>";
-				}
-				else{
                 buttonBox.innerHTML += "<button onClick=\"advanceTo(scenario." + path + ")\">" + name + "</button>";
-				}
             }
         };
 
@@ -169,7 +157,57 @@
 
 
         scenario = {}
-        var scenario = {'index': {'text': '暗恋的同桌喊你去吃饭', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'是': 'scene2'}, {'否': 'scene3'}]}, 'scene2': {'text': '被家长抓到打了一顿', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'好好学习': 'end'}, {'继续地下恋情': '考试'}]}, '考试': {'text': '考试了，是谈恋爱还是学习', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'学习': '考上复旦'}, {'恋爱': '考试失败'}]}, '考试失败': {'text': '考试失败回家养猪，TA离你而去', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'Restart': 'index'}]}, '考上复旦': {'text': '考上了复旦，却失去了TA', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'Restart': 'index'}]}, 'scene3': {'text': '注孤生，再给你次机会要不要？', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'要': 'index'}, {'否': 'end'}]}, 'end': {'text': '早恋结束，好好学习', 'image': 'http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg', 'choices': [{'Restart': 'index'}]}};
+        var scenario = {
+
+            'index': { 'text': '暗恋的同桌喊你去吃饭', 'image': "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg", 'choices': [{ '是': 'scene2' }, { '否': 'scene3' }] },
+            'scene2':
+                { 'text': '被家长抓到打了一顿', 'image': "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg", 'choices': [{ '是': 'end' }] },
+            'scene3': {
+                'text': '注孤生，再给你次机会要不要？', 'image': "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg", 'choices': [{ '要': 'index' }, { '否': 'end' }]
+            },
+            'end': {
+                'text': '早恋结束，好好学习', 'image': "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg", 'choices': [{ 'Restart': 'index' }]
+            }
+
+
+            // one: {
+            //     image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg", //dog
+            //     text: "You have finally decided to take your dog out for a walk. You smile and pat your trusty companion's head. What the dog's name?\n",
+            // },
+            // two: {
+            //     image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg", //house
+            //     text: "Your dog yanks at the leash. You hear dogs barking and see an old abandoned house. Strangely, the door is wide open. What do you want to do?",
+            //     buttons: [{ "Turn and run": "three" }, { "Enter The House": "four" }]
+            // },
+            // three: {
+            //     image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg",
+            //     text: "A wild gang of rabid dogs are gaining on you. Against your better judgement you enter the creepy house for saftey. Your dog is whincing and may be injured.",
+            //     buttons: [{ "continue": "four" }]
+            // },
+            // four: {
+            //     image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg",
+            //     text: "Your dog has run, barking loudly, into the basement. You wonder what's down there. The door jammed when you slammed it behind you. You are going to need something to pry it back open",
+            //     buttons: [{ "Follow your Dog Downstairs": "five" }, {
+            //         "Search the Kitchen for a knife": "five"
+            //     }]
+            // },
+            // five: {
+            //     image: "http://scimg.158pic.com/allimg/170217/106-1F21F92934T8.jpg",
+            //     text: "TO BE CONTINUED...",
+            //     buttons: [{ "Follow your Dog Downstairs": "five" }, { "Search the Kitchen for a knife": "five" }]
+            // },
+            // six: {
+            //     image: "",
+            //     text: "",
+            //     buttons: [{ "Follow your Dog Downstairs": "five" }, { "Search the Kitchen for a knife": "five" }]
+            // },
+            // seven: {
+            //     image: "",
+            //     text: "",
+            //     buttons: [{ "Follow your Dog Downstairs": "five" }, { "Search the Kitchen for a knife": "five" }]
+            // }
+
+        };
 
         advanceTo(scenario.index)
     </script>

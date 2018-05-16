@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game Maker</title>
+
+    <script src="lib/codemirror.js"></script>
+    <link rel="stylesheet" href="lib/codemirror.css">
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <script src="mode/yaml/yaml.js"></script>
+    <script src="lib/js-yaml.js"></script>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Game Maker</a>
+            </div>
+    </nav>
+
+
+    </nav>
+
+    </div>
+
+
+    <div class="container">
+
+        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+
+        </div>
+
+
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5" >
+
+            <button type="button" onclick="run()" class="btn btn-default">Run</button>
+            <textarea name="" id="code" class="form-control" rows="3" required="required" ></textarea>
+
+        </div>
+        <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+            <!-- <textarea id="result" class="form-control" rows="3" required="required"></textarea> -->
+            <iframe id="game" height="500"></iframe>
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+        var default_text = `
+# 使用方法：
+# 以 "#" 开头的行为注释
+# 缩进使用tab键或者两个空格
+# 标点符号请使用英文的冒号和减号
+# 第一幕必须使用index作为标题
+# text、image、choices为固定标签不可更改，其他可使用任意中英文
+# 每次输入新内容后点击 RUN 刷新右边网页
+
+index: 
+  text: 暗恋的同桌喊你去吃饭
+  image: https://image.ibb.co/gdFQLd/9.jpg
+  choices:
+    - 是: scene2
+    - 否: scene3
+  
+scene2: 
+  text: 被家长抓到打了一顿
+  image: https://image.ibb.co/gdFQLd/9.jpg
+  choices:
+    - 好好学习: end
+    - 继续地下恋情: 考试
+
+考试:
+  text: 考试了，是谈恋爱还是学习
+  image: https://image.ibb.co/gdFQLd/9.jpg
+  choices: 
+    - 学习: 考上复旦
+    - 恋爱: 考试失败
+
+考试失败:
+  text: 考试失败回家养猪，TA离你而去
+  image: https://image.ibb.co/gdFQLd/9.jpg
+  choices: 
+    - Restart: index
+
+
+考上复旦:
+  text: 考上了复旦，却失去了TA
+  image: https://image.ibb.co/gdFQLd/9.jpg
+  choices:
+    - Restart: index
+
+scene3: 
+  text: 注孤生，再给你次机会要不要？
+  image: https://image.ibb.co/gdFQLd/9.jpg
+  choices:
+    - 要: index
+    - 否: end
+
+end: 
+  text: 早恋结束，好好学习
+  image: https://image.ibb.co/gdFQLd/9.jpg
+  choices:
+    - Restart: index`
+
+
+
+        var editor, result, permalink;
+        var game = document.getElementById('game');
+        function parse() {
+            var str, obj;
+
+            str = editor.getValue();
+            try {
+                obj = jsyaml.load(str);
+
+                result.setOption('mode', 'javascript');
+                result.setValue(JSON.stringify(obj));
+            } catch (err) {
+                result.setOption('mode', 'text/plain');
+                result.setValue(err.message || String(err));
+            }
+        }
+
+        function run() {
+            str = editor.getValue();
+            try {
+                obj = jsyaml.load(str);
+                game.src = game.src;
+                // game.contentWindow.scenario = obj;
+                game.addEventListener("load", function () {
+                    // var iframeDocument = game.contentDocument || game.contentWindow.document;
+                    // iframeDocument.scenario = obj;
+                    game.contentWindow.scenario = obj; 
+                });
+                // console.log(game.contentWindow.scenario);
+                // setTimeout(function () { }, 100);
+
+            } catch (err) {
+                alert(err.message || String(err))
+            }
+
+        }
+        
+        editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+            value: default_text,
+            mode: "yaml",
+            lineNumbers: true,
+            smartIndent: true,
+            styleActiveLine: true,
+            indentUnit: 2,
+            tabSize: 2,
+            
+        });
+        editor.setSize("100%", "100%");
+        editor.setValue(default_text);
+        game.src = "template.html";
+
+    </script>
+</body>
+
+</html>
