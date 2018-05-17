@@ -17,6 +17,28 @@
             font-family: 'Lato', sans-serif;
         }
 
+        /* #main{
+            transition: 1s;
+        } */
+
+        .transfrom {
+            animation: slide 0.3s forwards;
+            -webkit-animation: slide 0.3s forwards;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateY(0%);
+            }
+            50% {
+                transform: translateY(80%);
+            }
+            100% {
+                transform: translateY(0%);
+            }
+        }
+
+
         #images {
             height: 300px;
             background-size: cover;
@@ -115,17 +137,18 @@
 </head>
 
 <body>
-    <div class="container">
-        <div id="images">
+    <div id="main">
+        <div class="container">
+            <div id="images">
+            </div>
+            <div id="text" class="centered">
+            </div>
         </div>
-        <div id="text" class="centered">
+
+        <!-- <input id="input" onkeypress="submitDogName(this)" placeholder='Type Your Dogs Name and Enter to Begin'> -->
+        <div id="buttonBox">
         </div>
     </div>
-
-    <!-- <input id="input" onkeypress="submitDogName(this)" placeholder='Type Your Dogs Name and Enter to Begin'> -->
-    <div id="buttonBox">
-    </div>
-
     <script>
         var images = document.getElementById("images");
         var text = document.getElementById("text");
@@ -147,28 +170,37 @@
                 dict = buttonList[i]
                 name = Object.keys(dict)[0]
                 path = dict[name]
-				if (name == "Restart"){
-                buttonBox.innerHTML += "<button class='buttonRed' onClick=\"advanceTo(scenario." + path + ")\">" + name + "</button>";
-				}
-				else{
-                buttonBox.innerHTML += "<button onClick=\"advanceTo(scenario." + path + ")\">" + name + "</button>";
-				}
+                if (name == "Restart") {
+                    buttonBox.innerHTML += "<button class='buttonRed' onClick=\"advanceTo(scenario." + path + ")\">" + name + "</button>";
+                }
+                else {
+                    buttonBox.innerHTML += "<button onClick=\"advanceTo(scenario." + path + ")\">" + name + "</button>";
+                }
             }
         };
 
+        var main = document.getElementById("main");
+        main.addEventListener("animationend", function () {
+            main.classList.remove("transfrom");
+        })
+
         var advanceTo = function (s) {
+            main.classList.add("transfrom");
             changeImage(s.image)
             changeText(s.text)
             changeButtons(s.choices)
         };
 
-
         var scenario = {{ plot }};
+
         function checkVariable() {
 
             if (typeof scenario !== "undefined") {
                 advanceTo(scenario.index)
                 console.log("Game Start")
+            }
+            else {
+                setTimeout(checkVariable, 1000);
             }
         }
         checkVariable()
