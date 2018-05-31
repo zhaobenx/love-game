@@ -59,6 +59,8 @@ var nextQuestion = function (s) {
         // restart();
         // return;
         $("#failedModal").modal();
+        changeText("");
+        changeButtons([]);
         return;
     }
     else if (score > 60) {
