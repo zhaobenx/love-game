@@ -23,7 +23,7 @@ var changeButtons = function (buttonList) {
         name = Object.keys(dict)[0]
         s = dict[name]
         if (name == "Restart") {
-            buttonBox.innerHTML += "<button onClick=\"nextQuestion(" + s + ")\" type=\"button\" class=\"btn btn-default btn-lg  btn-danger btn-block\">" + name + "</button>";
+            buttonBox.innerHTML += "<button onClick=\"{ restart();nextQuestion(0);}\" type=\"button\" class=\"btn btn-default btn-lg  btn-danger btn-block\">" + name + "</button>";
         } else {
             buttonBox.innerHTML += "<button onClick=\"nextQuestion(" + s + ")\" type=\"button\" class=\"btn btn-default btn-lg btn-block\">" + name + "</button>";
         }
@@ -60,7 +60,7 @@ var nextQuestion = function (s) {
         // return;
         $("#failedModal").modal();
         changeText("");
-        changeButtons([]);
+        changeButtons([{'Restart': 0}]);
         return;
     }
     else if (score > 60) {
@@ -93,7 +93,7 @@ var nextQuestion = function (s) {
 
         $("#resultModal").modal();
         changeText("");
-        changeButtons([]);
+        changeButtons([{'Restart': 0}]);
 
     }
     else {
