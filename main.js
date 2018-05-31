@@ -49,7 +49,7 @@ function restart() {
 
 function popTooltip(content){
     $("#text").attr('data-original-title', content);
-    $("#text").attr('data-placement', "right");
+    $("#text").attr('data-placement', "top");
     $("#text").tooltip('show');
     setTimeout(function () {
         $("#text").tooltip('hide');
