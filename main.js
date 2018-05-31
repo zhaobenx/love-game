@@ -6,6 +6,8 @@ var input = document.getElementById('input');
 var score_label = document.getElementById('score');
 
 score = 20;
+last_status = 0;
+status = 0;
 reach_love = false;
 
 var changeText = function (words) {
@@ -45,13 +47,61 @@ function restart() {
     console.log("restart");
 }
 
+function popTooltip(content){
+    $("#text").attr('data-original-title', content);
+    $("#text").attr('data-placement', "right");
+    $("#text").tooltip('show');
+    setTimeout(function () {
+        $("#text").tooltip('hide');
+    }, 3000);
+}
+
 
 var nextQuestion = function (s) {
     main.classList.add("transfrom");
     score += s;
+
     console.log("score: ", score)
     $(".scoreModal").text(score);
     changeScore();
+
+
+    if (score < 40) {
+        status = 0;
+        $("h2").removeClass();
+        $("h2").addClass("bg-primary");
+        if (last_status != status) {
+            popTooltip("普通同学");
+        }
+    }
+    else if (score < 60) {
+        status = 1;
+        $("h2").removeClass();
+        $("h2").addClass("bg-success");
+        if (last_status != status) {
+            popTooltip("很好的朋友");            
+        }
+    }
+    else if (score < 100) {
+        status = 2;
+        $("h2").removeClass();
+        $("h2").addClass("bg-warning");
+        if (last_status != status) {
+            popTooltip("友达以上");            
+        }
+    }
+    else {
+        status = 3;
+        $("h2").removeClass();
+        $("h2").addClass("bg-danger");
+        if (last_status != status) {
+            popTooltip("进入热恋");            
+        }
+    }
+
+    last_status = status;
+
+
     if (score < 0) {
         // changeText("You lose");
 
@@ -60,7 +110,7 @@ var nextQuestion = function (s) {
         // return;
         $("#failedModal").modal();
         changeText("");
-        changeButtons([{'Restart': 0}]);
+        changeButtons([{ 'Restart': 0 }]);
         return;
     }
     else if (score > 60) {
@@ -93,7 +143,7 @@ var nextQuestion = function (s) {
 
         $("#resultModal").modal();
         changeText("");
-        changeButtons([{'Restart': 0}]);
+        changeButtons([{ 'Restart': 0 }]);
 
     }
     else {

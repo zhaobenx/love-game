@@ -16,6 +16,10 @@ h1{
     color: azure;
 }
 
+h2{
+    padding: 10px;
+}
+
 #text{
     color: black;   
 }
